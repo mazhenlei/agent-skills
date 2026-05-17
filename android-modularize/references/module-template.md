@@ -163,7 +163,7 @@ dependencies {
 
 - **按页面分包**：同一页面的 Activity、Fragment、ViewModel、Adapter 放在同一个目录下，改一个页面不用跳多个文件夹
 - **`ui/common/`**：跨页面复用的 UI 组件（通用 Dialog、通用 Adapter、自定义 Widget）
-- 页面目录命名用小写，如 `login/`、`order_detail/`、`settings/`
+- 页面目录命名用小驼峰，如 `login/`、`orderDetail/`、`settings/`
 
 **子目录说明：**
 
