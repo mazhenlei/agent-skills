@@ -41,13 +41,17 @@ description: |
 
 ### 模块命名：主动建议，用户确认或自定义
 
-根据探测到的命名风格，**主动给出建议的模块名、service-api 名和包名**，让用户选择用建议值还是自己改。不要直接问"你想叫什么"，而是给一个具体的推荐：
+根据探测到的命名风格，**主动给出建议的模块名、service-api 名、包名和页面分包名**，让用户选择用建议值还是自己改。不要直接问"你想叫什么"，而是给一个具体的推荐：
 
 ```
 根据项目已有命名风格，建议：
 - 业务模块名：at_login
 - service-api 名：service:login-api
 - 包名：com.atour.atourlife.login
+- 页面分包名：
+  - ui/login/        → LoginActivity, LoginFragment, LoginViewModel, LoginAdapter
+  - ui/register/     → RegisterActivity, RegisterViewModel
+  - ui/forgot_pwd/   → ForgotPwdActivity, ForgotPwdViewModel
 
 你觉得可以吗？或者你想自定义名称？
 ```
@@ -56,6 +60,7 @@ description: |
 - **业务模块名**：沿用项目已有前缀（`at_`、`lib_`、`module_`、`feature_`）+ 业务域名
 - **service-api 名**：`service:` 前缀 + 业务域名 + `-api` 后缀，如果项目没有 service 层目录则直接用 `xxx-api`
 - **包名**：沿用 app 包名前缀 + 业务域名，如项目习惯用独立包名则用独立包名
+- **页面分包名**：根据该模块内已有页面（Activity/Fragment）的命名，提取业务功能名作为包名，用小写+下划线风格（如 `login/`、`order_detail/`、`forgot_pwd/`），同一页面的 Activity、Fragment、ViewModel、Adapter 放在同一个包下
 
 ---
 
