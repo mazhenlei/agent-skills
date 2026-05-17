@@ -130,9 +130,9 @@ dependencies {
     │   │       │   ├── activity/
     │   │       │   ├── fragment/
     │   │       │   ├── compose/
-    │   │       │   └── dialog/
+    │   │       │   ├── dialog/
+    │   │       │   └── adapter/
     │   │       ├── viewmodel/
-    │   │       ├── adapter/
     │   │       ├── api/
     │   │       ├── service/
     │   │       ├── model/
@@ -161,8 +161,8 @@ dependencies {
 | `ui/fragment/` | Fragment 类 |
 | `ui/compose/` | Compose 页面组件（`@Composable` 函数、Screen） |
 | `ui/dialog/` | Dialog、DialogFragment、BottomSheetDialog 等 |
+| `ui/adapter/` | RecyclerView Adapter、ViewPager Adapter 等 |
 | `viewmodel/` | ViewModel |
-| `adapter/` | RecyclerView Adapter、ViewPager Adapter 等 |
 | `api/` | Retrofit/OkHttp 接口定义 |
 | `service/` | 业务服务接口和内部实现 |
 | `model/request/` | 请求参数模型 |
