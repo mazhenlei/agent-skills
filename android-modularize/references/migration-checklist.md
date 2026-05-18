@@ -9,13 +9,13 @@
 - [ ] 确认要迁移的业务域名称和目标模块名
 - [ ] 列出 app 模块中属于该业务的所有源文件（按包路径扫描）
 - [ ] 列出该业务使用的所有 layout 资源文件
-- [ ] 列出该业务使用的 drawable/values 等其他资源
+- [ ] 列出该业务使用的 drawable/values 等其他资源，**判断资源归属**：通用 icon 下沉到项目公共 UI 组件模块，业务专属资源随模块迁移
 - [ ] 识别该业务的 AndroidManifest.xml 中的 Activity/Service/Receiver 声明
 - [ ] 确认该业务是否有独立的 Retrofit API 接口（在 `api/` 包下）
 - [ ] 识别该业务对其他业务模块的直接引用（跨业务 import）
 - [ ] 识别其他业务模块对该业务的直接引用（反向依赖）
 - [ ] 确认是否需要创建 service-api 模块
-- [ ] 确认 EventBus/LiveData 等事件类是否需要跨模块共享
+- [ ] 确认 EventBus/LiveData 等事件类是否需要跨模块共享，**Event 类统一放入公共模块（basic_common/basic_library）的 event/ 目录，不放入 router 或 service-api**
 - [ ] 确认项目使用的路由方案及版本
 
 ## 迁移中：代码迁移
@@ -26,7 +26,7 @@
 - [ ] 将路由常量类迁入 service-api
 - [ ] 定义服务接口
 - [ ] 将需要共享的数据模型迁入 service-api
-- [ ] 将需要跨模块传递的 Event 类迁入 service-api
+- [ ] **Event 事件类不放入 service-api，统一放入公共模块（basic_common/basic_library）的 event/ 目录**
 - [ ] service-api 的 build.gradle 只依赖项目最底层公共模块
 - [ ] 在 settings.gradle 中 include service-api 模块
 
@@ -50,7 +50,7 @@
 - [ ] 判断被引用类归属：仅服务当前业务 → 一起迁；属于其他业务 → 接口解耦；多业务共用 → 下沉公共层
 - [ ] 更新 app 模块中对该业务的 import（改为通过 service-api）
 - [ ] 更新其他业务模块中对该业务的引用
-- [ ] 处理事件总线：共享 Event 放入 service-api，模块内部 Event 留在模块内
+- [ ] 处理事件总线：共享 Event 下沉到公共模块（basic_common/basic_library）的 event/ 目录，模块内部 Event 留在模块内
 - [ ] 检查是否有循环依赖
 
 ### 构建配置

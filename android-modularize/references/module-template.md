@@ -254,13 +254,31 @@ dependencies {
         └── AndroidManifest.xml
 ```
 
-**router 模块只放接口和常量，不放任何业务实现代码。**
+**router 模块只放接口和常量，不放任何业务实现代码，也不放 Event 事件类。**
 
 | 子目录 | 用途 |
 |--------|------|
 | `constants/` | 路由路径常量、其他跨模块共享的常量 |
 | `service/` | 服务接口定义（只有 interface，没有实现） |
 | `model/` | 跨模块共享的数据模型（DTO、Bean） |
+
+> **重要**：EventBus/FlowBus 等事件通信类请放到公共模块（basic_common 或 basic_library）的 `event/` 目录下，不要放入 router 模块。
+
+## 公共模块 Event 目录（basic_common / basic_library）
+
+模块间通信的事件类统一放在公共模块：
+
+```
+{{BASE_COMMON_MODULE}}/
+└── src/
+    └── main/
+        └── java/
+            └── {{包路径}}/
+                └── event/           # 所有跨模块通信的 Event 类
+                    ├── LoginEvent.kt
+                    ├── OrderEvent.kt
+                    └── UserInfoUpdateEvent.kt
+```
 
 ## 独立调试 AndroidManifest.xml（debug 目录）
 

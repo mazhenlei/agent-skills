@@ -191,10 +191,14 @@ router  -->  项目最底层公共模块（如 basic:common）+ 路由库
 如果用户原有代码已经按类型分包（如 `activity/`、`fragment/`、`adapter/`），且业务较少，可直接沿用。但如果业务较多，迁移时正好是调整为按页面分包的好时机。尊重用户的最终选择。
 
 **迁移时需要同步处理：**
-- **资源文件**：layout、drawable、values 等从 app/res 迁入模块 res，确保 `resourcePrefix` 命名
+- **资源文件：先判断归属再迁移**
+  - 仅当前业务使用的 layout、业务专属 drawable、业务专属 values 等从 app/res 迁入模块 res，确保 `resourcePrefix` 命名
+  - 被多个业务共用的通用 icon、通用 drawable（如箭头、占位图、通用按钮图标、通用状态图标）**下沉到项目公共 UI 组件模块**，不要随业务迁移
+  - 业务专属 icon（如登录模块的验证码图标、订单模块的专属状态图标）随业务模块迁移
 - **R 类引用**：迁入新模块后 R 类变为模块自己的 R 类，DataBinding 的 R 引用需要注意
 - **Manifest**：将 Activity 声明从 app/AndroidManifest.xml 移到模块 Manifest
 - **路由注册**：确保目标 Activity 上的路由注解路径正确，且路由注解处理器已配置
+- **Event 类**：用于模块间通信的 EventBus/FlowBus 等事件类**下沉到公共组件（basic_common 或 basic_library）**，不要放入 router 模块，router 模块只放路由常量、服务接口和共享数据模型
 
 #### 4.3 处理依赖：被迁代码引用了 app 中未迁移的类
 
@@ -212,8 +216,8 @@ router  -->  项目最底层公共模块（如 basic:common）+ 路由库
 **第二步：执行迁移**
 
 - **一起迁过来的**：直接移到当前模块，更新包路径即可
-- **放入 router 的**：将共享数据模型（Bean/DTO）、Event 类、常量迁入 router，让新模块和 app 都依赖 router
-- **下沉到公共模块的**：将通用工具类、基础数据模型迁入项目最底层公共模块，注意不能带入任何业务逻辑
+- **放入 router 的**：将共享数据模型（Bean/DTO）、常量迁入 router，让新模块和 app 都依赖 router
+- **下沉到公共模块的**：将通用工具类、基础数据模型、Event 事件类（EventBus/FlowBus 等）迁入项目最底层公共模块，注意不能带入任何业务逻辑
 - **通过接口解耦的**：在 router 定义服务接口，app 或原模块提供实现，新模块通过路由服务发现调用
 
 **第三步：更新所有引用**
